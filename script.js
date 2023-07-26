@@ -1,27 +1,34 @@
-const enter= document.getElementById("enter");
-const listBox= document.getElementById("list-box");
-function addTask(){
-    if(enter.value ===''){
-        alert("Enter the task");
-    }
-    else{
-        let li=document.createElement("li");
-        li.innerHTML=enter.value;
-        listBox.appendChild(li);
-let span=document.createElement("span");
-span.innerHTML="delete";
-li.appendChild(span);
-    }
-enter.value="";
-}
-listBox.addEventListener("click",function(e){
-    if(e.target.tagName==="LI"){
-        e.target.classList.toggle("checked");
-    }
-    else if(e.target.tagName==="SPAN"){
-        e.target.parentElement.remove();
-    }
-    
-    
-    },false);
+const tabItems = document.querySelectorAll('.tab-item');
+const tabContentItems = document.querySelectorAll('.tab-content-item');
 
+// Select tab content item
+function selectItem(e) {
+    // Remove all show and border classes
+    removeBorder();
+    removeShow();
+    // Add border to current tab item
+    this.classList.add('tab-border');
+    // Grab content item from DOM
+    const tabContentItem = document.querySelector(`#${this.id}-content`);
+    // Add show class
+    tabContentItem.classList.add('show');
+}
+
+// Remove bottom borders from all tab items
+function removeBorder() {
+    tabItems.forEach(item => {
+        item.classList.remove('tab-border');
+    });
+}
+
+// Remove show class from all content items
+function removeShow() {
+    tabContentItems.forEach(item => {
+        item.classList.remove('show');
+    });
+}
+
+// Listen for tab item click
+tabItems.forEach(item => {
+    item.addEventListener('click', selectItem);
+});
